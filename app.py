@@ -28,7 +28,7 @@ init_db()
 
 @app.route('/')
 def homepage():
-    return render_template('index.html')
+    return '<h2>Minha pagina com Flask</h2>'
 
 
 @app.route('/doar', methods=['POST'])
