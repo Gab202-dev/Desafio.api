@@ -6,12 +6,10 @@ import sqlite3
 app = Flask(__name__)
 
 
-
-
 def init_db():
-    
+
     with sqlite3.connect('database.db') as conn:
-        
+
         conn.execute("""CREATE TABLE IF NOT EXISTS livros(
                      id INTEGER PRIMARY KEY AUTOINCREMENT,
                      titulo TEXT NOT NULL,
@@ -28,7 +26,7 @@ init_db()
 
 @app.route('/')
 def homepage():
-    return '<h2>Minha pagina com Flask</h2>'
+    return render_template('index.html')
 
 
 @app.route('/doar', methods=['POST'])
@@ -46,11 +44,11 @@ def doar():
 
     with sqlite3.connect('database.db') as conn:
         conn.execute(
-            f""" INSERT INTO livros (titulo, categoria, autor, imagem_url) VALUES (?,?,?,)""", (titulo, categoria, autor,imagem_url))
+            f""" INSERT INTO livros (titulo, categoria, autor, imagem_url) VALUES (?,?,?,)""", (titulo, categoria, autor, imagem_url))
 
         conn.commit()
 
-        return jsonify({"mensagem": "Livro cadastrado com sucesso"}), 201 
+        return jsonify({"mensagem": "Livro cadastrado com sucesso"}), 201
 
 
 if __name__ == "__main__":
